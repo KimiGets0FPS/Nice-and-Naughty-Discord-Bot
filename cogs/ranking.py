@@ -1,8 +1,18 @@
 from discord.ext import commands
 
+import json, os
+
 class Ranking(commands.Cog, name="Listing"):
     def __init__(self, bot):
         self.bot = bot
+        try:
+            rankings = json.load(open(f"{os.getcwd()}\\cogs\\rankings.json", "r"))
+        except FileNotFoundError:
+            ...
+
+        exceptions = open(f"{os.getcwd()}\\cogs\\exceptions.txt", "r").readlines()
+        for i in range(len(exceptions)):
+            exceptions[i] = exceptions[i].strip()
 
     @commands.hybrid_command(name="testrank", description="This is a testing command")
     async def testrank(self, ctx):
